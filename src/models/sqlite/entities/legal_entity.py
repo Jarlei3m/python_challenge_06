@@ -2,7 +2,7 @@ from sqlalchemy import Column, String, Integer, BIGINT, REAL
 from src.models.sqlite.settings.base import Base
 
 class LegalEntityTable(Base):
-    __table_name__ = "pessoa_juridica"
+    __tablename__ = "pessoa_juridica"
 
     id = Column(BIGINT, primary_key=True)
     faturamento = Column(String)
