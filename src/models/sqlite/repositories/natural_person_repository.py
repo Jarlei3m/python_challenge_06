@@ -56,4 +56,47 @@ class NaturalPersonRepository:
             except Exception as exception:
                 database.session.rollback()
                 raise exception
+
+    def withdraw_cash_natural_person(self, natural_person_id: int, amount: float) -> None:
+        with self.__db_connection as database:
+            try:
+                natural_person = (
+                    database.session
+                    .query(NaturalPersonTable)
+                    .filter(NaturalPersonTable.id == natural_person_id)
+                    .one()
+                )
+
+                if natural_person.saldo >= amount:
+                    natural_person.saldo -= amount
+                else:
+                    error_message = "Insufficient balance for this withdrawal."
+                    raise ValueError(error_message)
+                
+                database.session.commit()
+            except NoResultFound as exc:
+                raise ValueError("Natural person not found") from exc
+
+            except Exception as exception:
+                database.session.rollback()
+                raise exception
+
+    def check_statment_natural_person(self, natural_person_id: int) -> NaturalPersonTable:
+        with self.__db_connection as database:
+            try:
+                natural_person = (
+                    database.session
+                    .query(NaturalPersonTable)
+                    .filter(NaturalPersonTable.id == natural_person_id)
+                    .with_entities(
+                        NaturalPersonTable.nome_completo,
+                        NaturalPersonTable.saldo,
+                        NaturalPersonTable.renda_mensal
+                    )
+                    .one()
+                )
+
+                return natural_person
+            except NoResultFound:
+                return None
             

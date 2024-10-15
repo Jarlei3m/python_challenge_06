@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+from typing import List
+from sqlalchemy.orm.exc import NoResultFound
 from src.models.sqlite.entities.legal_entity import LegalEntityTable
 
 @dataclass
@@ -32,3 +34,69 @@ class LegalEntityRepository:
             except Exception as exception:
                 database.session.rollback()
                 raise exception
+
+    def list_legal_entity(self) -> List[LegalEntityTable]:
+        with self.__db_connection as database:
+            try:
+                legal_entity = database.session.query(LegalEntityTable).all()
+                return legal_entity
+            except NoResultFound:
+                return []
+    
+    def delete_legal_entity(self, name: str) -> None:
+        with self.__db_connection as database:
+            try:
+                (
+                    database.session
+                        .query(LegalEntityTable)
+                        .filter(LegalEntityTable.nome_fantasia == name)
+                        .delete()
+                )
+                database.session.commit()
+            except Exception as exception:
+                database.session.rollback()
+                raise exception
+
+    def withdraw_cash_legal_entity(self, legal_entity_id: int, amount: float) -> None:
+        with self.__db_connection as database:
+            try:
+                legal_entity = (
+                    database.session
+                    .query(LegalEntityTable)
+                    .filter(LegalEntityTable.id == legal_entity_id)
+                    .one()
+                )
+
+                if legal_entity.saldo >= amount:
+                    legal_entity.saldo -= amount
+                else:
+                    error_message = "Insufficient balance for this withdrawal."
+                    raise ValueError(error_message)
+                
+                database.session.commit()
+            except NoResultFound as exc:
+                raise ValueError("Legal entity not found") from exc
+
+            except Exception as exception:
+                database.session.rollback()
+                raise exception
+
+    def check_statment_legal_entity(self, legal_entity_id: int) -> LegalEntityTable:
+        with self.__db_connection as database:
+            try:
+                legal_entity = (
+                    database.session
+                    .query(LegalEntityTable)
+                    .filter(LegalEntityTable.id == legal_entity_id)
+                    .with_entities(
+                        LegalEntityTable.nome_fantasia,
+                        LegalEntityTable.saldo,
+                        LegalEntityTable.faturamento
+                    )
+                    .one()
+                )
+
+                return legal_entity
+            except NoResultFound:
+                return None
+                
