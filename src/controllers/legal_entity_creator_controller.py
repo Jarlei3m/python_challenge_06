@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 import re
 from typing import Dict
-from src.models.sqlite.repositories.legal_entity_repository import LegalEntityRepository
+
+from src.models.sqlite.interfaces.natural_person_repository import NaturalPersonRepositoryInterface
 
 @dataclass
 class LegalEntityData:
@@ -14,7 +15,7 @@ class LegalEntityData:
     saldo: float
 
 class LegalEntityCreatorController:
-    def __init__(self, legal_entity_repository: LegalEntityRepository):
+    def __init__(self, legal_entity_repository: NaturalPersonRepositoryInterface):
         self.__legal_entity_repository = legal_entity_repository
 
     def create(self, legal_entity_info: LegalEntityData) -> None:
