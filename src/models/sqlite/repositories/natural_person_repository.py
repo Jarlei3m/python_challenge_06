@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import List
 from sqlalchemy.orm.exc import NoResultFound
 from src.models.sqlite.entities.natural_person import NaturalPersonTable
+from src.models.sqlite.interfaces.natural_person_repository import NaturalPersonRepositoryInterface
 
 @dataclass
 class NaturalPersonData:
@@ -13,7 +14,7 @@ class NaturalPersonData:
     categoria: str
     saldo: float
 
-class NaturalPersonRepository:
+class NaturalPersonRepository(NaturalPersonRepositoryInterface):
     def __init__(self, db_connection) -> None:
         self.__db_connection = db_connection
 

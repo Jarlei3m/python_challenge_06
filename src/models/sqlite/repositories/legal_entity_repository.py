@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import List
 from sqlalchemy.orm.exc import NoResultFound
 from src.models.sqlite.entities.legal_entity import LegalEntityTable
+from src.models.sqlite.interfaces.legal_entity_repository import LegalEntityRepositoryInterface
 
 @dataclass
 class LegalEntityData:
@@ -13,7 +14,7 @@ class LegalEntityData:
     categoria: str
     saldo: float
 
-class LegalEntityRepository:
+class LegalEntityRepository(LegalEntityRepositoryInterface):
     def __init__(self, db_connection) -> None:
         self.__db_connection = db_connection
     
