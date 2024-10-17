@@ -19,12 +19,9 @@ class NaturalPersonCreatorController:
     
     def create(self, natural_person_info: NaturalPersonData) -> Dict:
         renda_mensal = natural_person_info["renda_mensal"]
-        # idade = natural_person_info["idade"]
         nome_completo = natural_person_info["nome_completo"]
         celular = natural_person_info["celular"]
         email = natural_person_info["email"]
-        # categoria = natural_person_info["categoria"]
-        # saldo = natural_person_info["saldo"]
 
         self.__validate_name(nome_completo)
         self.__validate_email(email)
