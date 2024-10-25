@@ -68,6 +68,11 @@ class NaturalPersonRepository(NaturalPersonRepositoryInterface):
                     .one()
                 )
 
+                withdraw_limit_allowed = 2000
+                if amount > withdraw_limit_allowed:
+                    error_message = "The amount excedded the withdraw limit amount for this account."
+                    raise ValueError(error_message)
+
                 if natural_person.saldo >= amount:
                     natural_person.saldo -= amount
                 else:
