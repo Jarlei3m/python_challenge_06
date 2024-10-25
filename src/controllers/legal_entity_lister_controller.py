@@ -1,12 +1,15 @@
-from typing import List
+from typing import Dict, List
+from src.controllers.interfaces.legal_entity_lister_controller import (
+    LegalEntityListerControllerInterface
+    )
 from src.models.sqlite.entities.legal_entity import LegalEntityTable
 from src.models.sqlite.repositories.legal_entity_repository import LegalEntityRepository
 
-class LegalEntityListerController:
+class LegalEntityListerController(LegalEntityListerControllerInterface):
     def __init__(self, legal_entity_repository: LegalEntityRepository):
         self.__legal_entity_repository = legal_entity_repository
     
-    def list(self):
+    def list(self) -> Dict:
         legal_entity_list = self.__get_legal_entity_list_in_db()
         response = self.__format_response(legal_entity_list)
 

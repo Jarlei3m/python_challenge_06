@@ -1,6 +1,9 @@
 from dataclasses import dataclass
 import re
 from typing import Dict
+from src.controllers.interfaces.natural_person_creator_controller import (
+    NaturalPersonCreatorControllerInterface
+    )
 from src.models.sqlite.interfaces.natural_person_repository import NaturalPersonRepositoryInterface
 
 @dataclass
@@ -13,7 +16,7 @@ class NaturalPersonData:
     categoria: str
     saldo: float
 
-class NaturalPersonCreatorController:
+class NaturalPersonCreatorController(NaturalPersonCreatorControllerInterface):
     def __init__(self, natural_person_repository: NaturalPersonRepositoryInterface) -> None:
         self.__natural_person_repository = natural_person_repository
     

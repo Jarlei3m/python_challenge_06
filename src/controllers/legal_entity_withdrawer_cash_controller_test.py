@@ -1,4 +1,6 @@
-from .legal_entity_withdrawer_cash_controller import LegalEntityWithdrawerCashController
+from src.controllers.legal_entity_withdrawer_cash_controller import (
+    LegalEntityWithdrawerCashController
+    )
 
 def test_legal_entity_withdrawer_cash(mocker):
     mocke_repository = mocker.Mock()

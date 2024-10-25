@@ -1,7 +1,10 @@
 from typing import Dict
+from src.controllers.interfaces.legal_entity_withdrawer_cash_controller import (
+    LegalEntityWithdrawerCashControllerInterface
+    )
 from src.models.sqlite.interfaces.legal_entity_repository import LegalEntityRepositoryInterface
 
-class LegalEntityWithdrawerCashController:
+class LegalEntityWithdrawerCashController(LegalEntityWithdrawerCashControllerInterface):
     def __init__(self, legal_entity_repository: LegalEntityRepositoryInterface):
         self.__legal_entity_repository = legal_entity_repository
 

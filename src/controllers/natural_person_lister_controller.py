@@ -1,9 +1,12 @@
 from typing import Dict, List
+from src.controllers.interfaces.natural_person_lister_controller import (
+    NaturalPersonListerControllerInterface
+    )
 from src.models.sqlite.entities.natural_person import NaturalPersonTable
 from src.models.sqlite.interfaces.natural_person_repository import NaturalPersonRepositoryInterface
 
 
-class NaturalPersonListerController:
+class NaturalPersonListerController(NaturalPersonListerControllerInterface):
     def __init__(self, natural_person_repository: NaturalPersonRepositoryInterface) -> None:
         self.__natural_person_repository = natural_person_repository
     
