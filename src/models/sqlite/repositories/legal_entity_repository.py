@@ -70,7 +70,7 @@ class LegalEntityRepository(LegalEntityRepositoryInterface):
 
                 withdraw_limit_allowed = 10000
                 if amount > withdraw_limit_allowed:
-                    error_message = "The amount excedded the withdraw limit amount for this account."
+                    error_message = "The amount exceeded the withdrawal limit for this account."
                     raise ValueError(error_message)
 
                 if legal_entity.saldo >= amount:
