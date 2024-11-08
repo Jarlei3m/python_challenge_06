@@ -1,10 +1,10 @@
-from src.controllers.legal_entity_creator_controller import LegalEntityCreatorController
+from src.controllers.legal_entity_creator_controller import LegalEntityCreatorControllerInterface
 from src.views.http_types.http_request import HttpRequest
 from src.views.http_types.http_response import HttpResponse
 from .interfaces.view_interface import ViewInterface
 
-class LegalEntityView(ViewInterface):
-    def __init__(self, controller: LegalEntityCreatorController) -> None:
+class LegalEntityCreatorView(ViewInterface):
+    def __init__(self, controller: LegalEntityCreatorControllerInterface) -> None:
         self.__controller = controller
 
     def handle(self, http_request: HttpRequest) -> HttpResponse:

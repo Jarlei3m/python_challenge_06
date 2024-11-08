@@ -1,10 +1,12 @@
-from src.controllers.natural_person_creator_controller import NaturalPersonCreatorController
+from src.controllers.natural_person_creator_controller import (
+    NaturalPersonCreatorControllerInterface
+    )
 from src.views.http_types.http_request import HttpRequest
 from src.views.http_types.http_response import HttpResponse
 from .interfaces.view_interface import ViewInterface
 
-class NaturalPersonView(ViewInterface):
-    def __init__(self, controller: NaturalPersonCreatorController) -> None:
+class NaturalPersonCreatorView(ViewInterface):
+    def __init__(self, controller: NaturalPersonCreatorControllerInterface) -> None:
         self.__controller = controller
 
     def handle(self, http_request: HttpRequest) -> HttpResponse:
