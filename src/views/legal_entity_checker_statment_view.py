@@ -10,7 +10,7 @@ class LegalEntityCheckerStatmentView(ViewInterface):
         self.__controller = controller
 
     def handle(self, http_request: HttpRequest) -> HttpResponse:
-        legal_entity_id = http_request.param["id"]
+        legal_entity_id = http_request.param["legal_entity_id"]
         body_response = self.__controller.check_statment(legal_entity_id)
 
         return HttpResponse(status_code=200, body=body_response )

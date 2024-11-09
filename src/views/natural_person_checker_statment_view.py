@@ -10,7 +10,7 @@ class NaturalPersonCheckerStatmentView(ViewInterface):
         self.__controller = controller
 
     def handle(self, http_request: HttpRequest) -> HttpResponse:
-        natural_person_id = http_request.param["id"]
+        natural_person_id = http_request.param["natural_person_id"]
         body_response = self.__controller.check_statment(natural_person_id)
 
         return HttpResponse(status_code=200, body=body_response )

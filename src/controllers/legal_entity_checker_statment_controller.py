@@ -26,11 +26,16 @@ class LegalEntityCheckerStatmentController(LegalEntityCheckerStatmentControllerI
         return check_statment_data
     
     def __format_response(self, check_statment_data: LegalEntityTable) -> Dict:
+        if hasattr(check_statment_data, '_mapping'):
+            attributes = dict(check_statment_data._mapping)
+        else:
+            attributes = check_statment_data
+
         return {
             "data": {
                 "type": "Natural Person",
                 "count": 1,
-                "attributes": check_statment_data
+                "attributes": attributes
             }
         }
     

@@ -5,20 +5,20 @@ from src.controllers.interfaces.natural_person_withdrawer_cash_controller import
     )
 
 class NaturalPersonWithdrawerCashController(NaturalPersonWithdrawerCashControllerInterface):
-    def __init__(self, legal_entity_repository: NaturalPersonRepositoryInterface):
-        self.__legal_entity_repository = legal_entity_repository
+    def __init__(self, natural_person_repository: NaturalPersonRepositoryInterface):
+        self.__natural_person_repository = natural_person_repository
 
     def withdraw_cash(self, withdraw_info: Dict) -> None:
-        legal_entity_id = withdraw_info["id"]
+        natural_person_id = withdraw_info["id"]
         amount = withdraw_info["amount"]
 
-        self.__validate_id(legal_entity_id)
+        self.__validate_id(natural_person_id)
         self.__validate_amount(amount)
         
-        self.__legal_entity_repository.withdraw_cash_legal_entity(legal_entity_id, amount)
+        self.__natural_person_repository.withdraw_cash_natural_person(natural_person_id, amount)
     
-    def __validate_id(self, legal_entity_id: int) -> None:
-        if not legal_entity_id:
+    def __validate_id(self, natural_person_id: int) -> None:
+        if not natural_person_id:
             raise Exception("Any legal entity id has been informed")
     
     def __validate_amount(self, amount: float) -> None:

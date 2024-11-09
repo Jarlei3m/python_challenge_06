@@ -22,13 +22,13 @@ class NaturalPersonRepository(NaturalPersonRepositoryInterface):
         with self.__db_connection as database:
             try:
                 natural_person_data = NaturalPersonTable(
-                    renda_mensal=person_data.renda_mensal,
-                    idade=person_data.idade,
-                    nome_completo=person_data.nome_completo,
-                    celular=person_data.celular,
-                    email=person_data.email,
-                    categoria=person_data.categoria,
-                    saldo=person_data.saldo
+                    renda_mensal=person_data["renda_mensal"],
+                    idade=person_data["idade"],
+                    nome_completo=person_data["nome_completo"],
+                    celular=person_data["celular"],
+                    email=person_data["email"],
+                    categoria=person_data["categoria"],
+                    saldo=person_data["saldo"]
                 )
                 database.session.add(natural_person_data)
                 database.session.commit()
@@ -67,7 +67,6 @@ class NaturalPersonRepository(NaturalPersonRepositoryInterface):
                     .filter(NaturalPersonTable.id == natural_person_id)
                     .one()
                 )
-
                 withdraw_limit_allowed = 2000
                 if amount > withdraw_limit_allowed:
                     error_message = "The amount exceeded the withdrawal limit for this account."

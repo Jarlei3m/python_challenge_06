@@ -22,13 +22,13 @@ class LegalEntityRepository(LegalEntityRepositoryInterface):
         with self.__db_connection as database:
             try:
                 legal_entity_data = LegalEntityTable(
-                    faturamento=entity_data.faturamento,
-                    idade=entity_data.idade,
-                    nome_fantasia=entity_data.nome_fantasia,
-                    celular=entity_data.celular,
-                    email_corporativo=entity_data.email_corporativo,
-                    categoria=entity_data.categoria,
-                    saldo=entity_data.saldo
+                    faturamento=entity_data["faturamento"],
+                    idade=entity_data["idade"],
+                    nome_fantasia=entity_data["nome_fantasia"],
+                    celular=entity_data["celular"],
+                    email_corporativo=entity_data["email_corporativo"],
+                    categoria=entity_data["categoria"],
+                    saldo=entity_data["saldo"]
                 )
                 database.session.add(legal_entity_data)
                 database.session.commit()

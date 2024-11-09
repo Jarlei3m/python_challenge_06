@@ -25,3 +25,4 @@ class NaturalPersonTable(Base):
             f"saldo={self.saldo}"
             f"]"
         )
+    
