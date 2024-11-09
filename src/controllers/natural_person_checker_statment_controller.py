@@ -2,6 +2,7 @@ from typing import Dict
 from src.controllers.interfaces.natural_person_checker_statment_controller import (
     NaturalPersonCheckerStatmentControllerInterface
     )
+from src.errors.error_types.http_bad_request import HttpBadRequestError
 from src.models.sqlite.entities.natural_person import NaturalPersonTable
 from src.models.sqlite.interfaces.natural_person_repository import NaturalPersonRepositoryInterface
 
@@ -21,7 +22,7 @@ class NaturalPersonCheckerStatmentController(NaturalPersonCheckerStatmentControl
             )
 
         if not check_statment_data:
-            raise Exception("An internal error occurred!")
+            raise HttpBadRequestError("An internal error occurred!")
         
         return check_statment_data
     

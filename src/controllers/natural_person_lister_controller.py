@@ -2,6 +2,7 @@ from typing import Dict, List
 from src.controllers.interfaces.natural_person_lister_controller import (
     NaturalPersonListerControllerInterface
     )
+from src.errors.error_types.http_bad_request import HttpBadRequestError
 from src.models.sqlite.entities.natural_person import NaturalPersonTable
 from src.models.sqlite.interfaces.natural_person_repository import NaturalPersonRepositoryInterface
 
@@ -20,7 +21,7 @@ class NaturalPersonListerController(NaturalPersonListerControllerInterface):
         natural_person_list = self.__natural_person_repository.list_natural_person()
         
         if not natural_person_list:
-            raise Exception("An internal error occurred!")
+            raise HttpBadRequestError("An internal error occurred!")
 
         return natural_person_list
     

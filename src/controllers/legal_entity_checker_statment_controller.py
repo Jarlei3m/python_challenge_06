@@ -2,6 +2,7 @@ from typing import Dict
 from src.controllers.interfaces.legal_entity_checker_statment_controller import (
     LegalEntityCheckerStatmentControllerInterface
     )
+from src.errors.error_types.http_bad_request import HttpBadRequestError
 from src.models.sqlite.entities.legal_entity import LegalEntityTable
 from src.models.sqlite.interfaces.legal_entity_repository import LegalEntityRepositoryInterface
 
@@ -21,7 +22,7 @@ class LegalEntityCheckerStatmentController(LegalEntityCheckerStatmentControllerI
             )
 
         if not check_statment_data:
-            raise Exception("An internal error occurred!")
+            raise HttpBadRequestError("An internal error occurred!")
         
         return check_statment_data
     

@@ -2,6 +2,7 @@ from typing import Dict, List
 from src.controllers.interfaces.legal_entity_lister_controller import (
     LegalEntityListerControllerInterface
     )
+from src.errors.error_types.http_bad_request import HttpBadRequestError
 from src.models.sqlite.entities.legal_entity import LegalEntityTable
 from src.models.sqlite.repositories.legal_entity_repository import LegalEntityRepository
 
@@ -19,7 +20,7 @@ class LegalEntityListerController(LegalEntityListerControllerInterface):
         legal_entity_list = self.__legal_entity_repository.list_legal_entity()
         
         if not legal_entity_list:
-            raise Exception("An internal error occurred!")
+            raise HttpBadRequestError("An internal error occurred!")
 
         return legal_entity_list
 

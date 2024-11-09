@@ -4,6 +4,7 @@ from typing import Dict
 from src.controllers.interfaces.natural_person_creator_controller import (
     NaturalPersonCreatorControllerInterface
     )
+from src.errors.error_types.http_bad_request import HttpBadRequestError
 from src.models.sqlite.interfaces.natural_person_repository import NaturalPersonRepositoryInterface
 
 @dataclass
@@ -41,26 +42,26 @@ class NaturalPersonCreatorController(NaturalPersonCreatorControllerInterface):
         non_valid_characters = re.compile(r'[^a-zA-Z ]')
 
         if non_valid_characters.search(nome_completo):
-            raise Exception("Invalid name!")
+            raise HttpBadRequestError("Invalid name!")
 
         if "  " in nome_completo:
-            raise Exception("Invalid name! Consecutive spaces are not allowed.")
+            raise HttpBadRequestError("Invalid name! Consecutive spaces are not allowed.")
     
     def __validate_email(self, email: str) -> None:
         email_pattern = re.compile(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
 
         if not email_pattern.match(email):
-            raise Exception("Invalid email address!")
+            raise HttpBadRequestError("Invalid email address!")
     
     def __validate_cell_phone(self, celular: str) -> None:
         celular_pattern = re.compile(r'^(\+55\s?)?(\(?\d{2}\)?)\s?\d{5}-?\d{4}$')
 
         if not celular_pattern.match(celular):
-            raise Exception("Invalid cell phone number!")
+            raise HttpBadRequestError("Invalid cell phone number!")
         
     def __validate_monthly_income(self, renda_mesal: float) -> None:
         if renda_mesal < 0:
-            raise Exception("Invalid monthly income! It must be equal or bigger than zero.")
+            raise HttpBadRequestError("Invalid monthly income! It must be equal or bigger than zero.")
     
     def __insert_natural_person_in_db(self, natural_person_info: NaturalPersonData) -> None:
         self.__natural_person_repository.insert_natural_person(natural_person_info)

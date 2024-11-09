@@ -2,6 +2,7 @@ from typing import Dict
 from src.controllers.interfaces.legal_entity_withdrawer_cash_controller import (
     LegalEntityWithdrawerCashControllerInterface
     )
+from src.errors.error_types.http_bad_request import HttpBadRequestError
 from src.models.sqlite.interfaces.legal_entity_repository import LegalEntityRepositoryInterface
 
 class LegalEntityWithdrawerCashController(LegalEntityWithdrawerCashControllerInterface):
@@ -19,9 +20,9 @@ class LegalEntityWithdrawerCashController(LegalEntityWithdrawerCashControllerInt
     
     def __validate_id(self, legal_entity_id: int) -> None:
         if not legal_entity_id:
-            raise Exception("Any legal entity id has been informed")
+            raise HttpBadRequestError("Any legal entity id has been informed")
     
     def __validate_amount(self, amount: float) -> None:
         if amount < 0:
-            raise Exception("Invalid monthly income! It must be equal or bigger than zero.")              
+            raise HttpBadRequestError("Invalid monthly income! It must be equal or bigger than zero.")              
           

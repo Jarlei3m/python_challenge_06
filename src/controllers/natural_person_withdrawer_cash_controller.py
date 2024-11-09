@@ -1,4 +1,5 @@
 from typing import Dict
+from src.errors.error_types.http_bad_request import HttpBadRequestError
 from src.models.sqlite.interfaces.natural_person_repository import NaturalPersonRepositoryInterface
 from src.controllers.interfaces.natural_person_withdrawer_cash_controller import (
     NaturalPersonWithdrawerCashControllerInterface
@@ -19,9 +20,11 @@ class NaturalPersonWithdrawerCashController(NaturalPersonWithdrawerCashControlle
     
     def __validate_id(self, natural_person_id: int) -> None:
         if not natural_person_id:
-            raise Exception("Any legal entity id has been informed")
+            raise HttpBadRequestError("Any legal entity id has been informed")
     
     def __validate_amount(self, amount: float) -> None:
         if amount < 0:
-            raise Exception("Invalid monthly income! It must be equal or bigger than zero.")              
+            raise HttpBadRequestError(
+                "Invalid monthly income! It must be equal or bigger than zero."
+                )              
           
